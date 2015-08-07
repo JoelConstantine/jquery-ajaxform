@@ -10,13 +10,11 @@ module.exports = function(grunt) {
 			}
 		},
     jshint: {
-      js: {
-        all: ['src/jquery.ajaxForm.js']
-      }
+      all: ['src/*.js']
     },
     concat: {
       build: {
-        src: ['src/*.js'],
+        src: ['src/**/*.js'],
         dest: 'jquery.ajaxForm.js'
       }
     },
@@ -37,5 +35,5 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	grunt.registerTask('default', ['watch']);
-  grunt.registerTask('jsBuild', ['jshint', 'concat', 'uglify'])
+  grunt.registerTask('jsBuild', ['jshint:all', 'concat', 'uglify'])
 };
