@@ -33,7 +33,21 @@
     this.init();
   };
   
-  
+  $.extend($.ajaxform, {
+    default: {
+      action: '',
+
+    },
+    init: function() {
+
+    },
+    beforeSend: function(ft) {
+
+    },
+    afterSend: function(ft) {
+
+    }
+  });
 
 
 }));
