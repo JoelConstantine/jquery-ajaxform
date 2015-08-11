@@ -1,4 +1,4 @@
-(function (factory) {
+;(function (factory) {
   if ( typeof define === "function" && define.amd ) {
     define( ["jquery"], factory );
   } else {
@@ -22,6 +22,14 @@
       }
 
       form = new $.ajaxform( options, this [0]);
+      $.data(this[0], "ajaxForm", form);
+
+
+      this.on('submit', function(event) {
+        event.preventDefault();
+        form.submitForm();
+      });
+
       return form;
     }
   });
@@ -36,20 +44,51 @@
   $.extend($.ajaxform, {
     default: {
       action: '',
-
+      inputClass: '',
+      spinner: ''
     },
     prototype: {
       init: function() {
+        this.$el = $(this.currentForm);
+        this.selectors = this.settings.inputClass || 'input, textarea, select';
+        this.settings.action = this.settings.action || this.$el.attr('action');
+        this.submitPost = null;
+      },
+      // Register a function to be called before submission
+      beforeSubmit: function(ft) {
+        this.settings.beforeHandler = ft;
+      },
+      // Register a function to be called after submission
+      afterSubmit: function(ft) {
+        this.settings.afterHandler = ft;
+      },
+      // Register a function for on successful submit
+      successHandler: function(ft) {
 
       },
-      beforeSend: function(ft) {
+      submitForm: function() {
+        var params = json_params(this.$el, this.selectors);
 
-      },
-      afterSend: function(ft) {
+        if (typeof this.settings.beforeHandler !== 'undefined' ) { this.settings.beforeHandler(); } 
 
+        this.submitPost = $.post( this.settings.action, params );
+
+        this.submitPost.done(function() {
+
+        })
+        .always(this.settings.afterHandler);
       }
     }
   });
 
+  function json_params($el, selector) {
+    var params = {};
+    
+    $(selector, $el).each(function() {
+      params[$(this).attr("name")] = $(this).val();
+    });
+
+    return params;
+  }
 
 }));
