@@ -38,14 +38,16 @@
       action: '',
 
     },
-    init: function() {
+    prototype: {
+      init: function() {
 
-    },
-    beforeSend: function(ft) {
+      },
+      beforeSend: function(ft) {
 
-    },
-    afterSend: function(ft) {
+      },
+      afterSend: function(ft) {
 
+      }
     }
   });
 
