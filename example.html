@@ -6,17 +6,18 @@
 	<script src="jquery.ajaxForm.js"></script>
 	</head>
 	<body>
-		<form id="test-form" action="/test.html">
+		<form id="test-form" action="example.html" method="post">
 			<input type="hidden" name="hiddenParam" value="test">
 			<label for="firstField">First Field</label>
 			<input id="firstField" type="text" name="firstField" required>
+			<button type="submit" form="test-form">Submit</button>
 		</form>
 
 		<script>
 		$(document).ready(function() {
-			var testForm = $('#test-form').ajaxForm();
-
-			console.log(testForm);
+			var testForm = $('#test-form').ajaxForm({
+				
+			});
 		});
 		</script>
 	</body>
