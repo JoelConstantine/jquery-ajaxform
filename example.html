@@ -1,0 +1,23 @@
+<!doctype HTML>
+<html>
+	<head>
+	<title>Test</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="jquery.ajaxForm.js"></script>
+	</head>
+	<body>
+		<form id="test-form" action="/test.html">
+			<input type="hidden" name="hiddenParam" value="test">
+			<label for="firstField">First Field</label>
+			<input id="firstField" type="text" name="firstField" required>
+		</form>
+
+		<script>
+		$(document).ready(function() {
+			var testForm = $('#test-form').ajaxForm();
+
+			console.log(testForm);
+		});
+		</script>
+	</body>
+</html>
