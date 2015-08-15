@@ -43,15 +43,17 @@
   
   $.extend($.ajaxform, {
     default: {
-      action: '',
+      actionAttr: '',
       inputClass: '',
-      spinner: ''
+      spinner: '',
+      typeAttr: 'POST',
     },
     prototype: {
       init: function() {
         this.$el = $(this.currentForm);
         this.selectors = this.settings.inputClass || 'input, textarea, select';
-        this.settings.action = this.settings.action || this.$el.attr('action');
+        this.settings.action = this.settings.actionAttr || this.$el.attr('action');
+        this.settings.action = this.$el.attr("type") || this.settings.typeAttr;
         this.submitPost = null;
       },
       // Register a function to be called before submission
@@ -71,7 +73,13 @@
 
         if (typeof this.settings.beforeHandler !== 'undefined' ) { this.settings.beforeHandler(); } 
 
-        this.submitPost = $.post( this.settings.action, params );
+        //this.submitPost = $.post( this.settings.action, params );
+        this.submitPost = $.ajax({
+          url: this.settings.actionAttr, 
+          method: this.settings.typeAttr,
+          data: params,
+          dataType: "json",
+        });
 
         this.submitPost.done(function() {
 
